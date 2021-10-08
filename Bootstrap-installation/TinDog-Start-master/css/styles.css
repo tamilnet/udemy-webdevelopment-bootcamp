@@ -141,3 +141,32 @@ p{
 .pricing-column{
   padding: 3% 2%;
 }
+
+@media (max-width: 990px){
+  .title-image{
+    position: static;
+    transform: rotate(0);
+  }
+  .container-fluid{
+    text-align: center;
+  }
+}
+
+/* Call To Action */
+
+#cta{
+  background-color: #ff4c68;
+  text-align: center;
+  padding: 5% 20% 7%;
+}
+
+/* Footer */
+
+#footer{
+  text-align: center;
+  padding: 5%;
+}
+
+.contact-logo{
+  margin: 10px;
+}
