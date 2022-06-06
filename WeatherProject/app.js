@@ -7,7 +7,7 @@ const fs = require("fs");
 
 const app = express();
 
-const openWeatherAPIKey= fs.readFileSync(__dirname + "/secrets.json" ,"utf8");
+const openWeatherAPIKey= fs.readFileSync(__dirname + "/secret.json" ,"utf8");
 
 app.get("/" , function(req , res){
 
