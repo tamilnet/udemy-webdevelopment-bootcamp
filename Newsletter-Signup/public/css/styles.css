@@ -29,7 +29,7 @@ body {
 .middle{
   border-radius: 0;
 }
-..bottom  {
+.bottom  {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;

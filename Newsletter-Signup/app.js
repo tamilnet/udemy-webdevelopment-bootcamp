@@ -3,6 +3,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
 const app = express();
+const https=require("https");
+const fs=require("fs");
+
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
@@ -12,13 +15,53 @@ app.get("/",function(req,res){
 });
 
 app.post("/",function(req,res){
-  var firstName=req.body.fName;
-  var lastName=req.body.lName;
-  var email=req.body.email;
+  const firstName=req.body.fName;
+  const lastName=req.body.lName;
+  const email=req.body.email;
+  console.log(firstName);
+  const data={
+    members:[
+      {
+        email_address:email,
+        status: "subscribed",
+        merge_fields:{
+          FNAME:firstName,
+          LNAME:lastName
+        }
+      }
+    ]
+  }
+
   
-  console.log(firstName,lastName,email);
+
   
-})
+
+  const jsonData=JSON.stringify(data);
+  console.log(jsonData);
+  const secretContent = fs.readFileSync(__dirname + "/secret.json", "utf8");
+  const secretObject = JSON.parse(secretContent);
+  const listId=secretObject.list_id;
+  const mailchimpAPIKey=secretObject.mailchimp_api_key;
+  const url="https://us8.api.mailchimp.com/3.0/lists/" + listId ;
+  const options={
+    method:"POST",
+    auth:"tamil1:" + mailchimpAPIKey
+  }
+  console.log(url);
+  const request=https.request(url,options,function(response){
+    response.on("data",function(data){
+      console.log(JSON.parse(data));
+    });
+  });
+
+  request.write(jsonData);
+  request.end();
+
+
+
+
+  
+});
 
 
 
